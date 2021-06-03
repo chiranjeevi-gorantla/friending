@@ -2,15 +2,22 @@ import React from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import {members} from './members';
+import './App.css';
 
 
 class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      members: members,
+      members: [],
       searchfield: ''
     }
+  }
+
+  componentDidMount(){
+    fetch('https://jsonplaceholder.typicode.com/users').
+     then(response => response.json())
+    .then(users => this.setState({members: users}));
   }
 
   onSearchChange = (event) =>{
@@ -21,13 +28,17 @@ render() {
     const filteredmembers = this.state.members.filter(members => {
     return members.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
   })
-  return(
-    <div className='tc'>
-      <h1 >Friending</h1>
-      <SearchBox searchChange={this.onSearchChange} />
-      <CardList members={filteredmembers} />
-    </div>
-  );
+  if(this.state.members.length === 0){
+    return <h1>Loading....</h1>
+  } else{
+    return(
+      <div className='tc'>
+        <h1 className='f1'>Friending</h1>
+        <SearchBox searchChange={this.onSearchChange} />
+        <CardList members={filteredmembers} />
+      </div>
+    );
+  } 
 }
 }
   
