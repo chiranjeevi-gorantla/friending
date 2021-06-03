@@ -1,7 +1,7 @@
 import React from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
-import {members} from './members';
+import Scroll from './Scroll';
 import './App.css';
 
 
@@ -35,7 +35,9 @@ render() {
       <div className='tc'>
         <h1 className='f1'>Friending</h1>
         <SearchBox searchChange={this.onSearchChange} />
+        <Scroll>
         <CardList members={filteredmembers} />
+        </Scroll>
       </div>
     );
   } 
