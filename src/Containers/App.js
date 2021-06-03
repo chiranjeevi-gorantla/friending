@@ -2,6 +2,7 @@ import React from 'react';
 import CardList from '../Components/CardList';
 import SearchBox from '../Components/SearchBox';
 import Scroll from '../Components/Scroll';
+import ErrorBoundary from '../Components/ErrorBoundary';
 import './App.css';
 
 
@@ -36,7 +37,9 @@ render() {
             <h1 className='f1'>Friending</h1>
             <SearchBox searchChange={this.onSearchChange} />
             <Scroll>
-            <CardList members={filteredmembers} />
+              <ErrorBoundary>
+                <CardList members={filteredmembers} />
+              </ErrorBoundary>  
             </Scroll>
           </div>
        );  
